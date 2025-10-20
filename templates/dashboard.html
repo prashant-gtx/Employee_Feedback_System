@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2>Dashboard</h2>
+<div class="grid">
+
+<div class="card">
+  <h3>Analytics</h3>
+  <div style="display:flex;gap:12px;flex-wrap:wrap">
+    <div style="flex:1;min-width:260px">
+      <canvas id="chartAvg" width="400" height="240"></canvas>
+    </div>
+    <div style="flex:1;min-width:260px">
+      <canvas id="chartTrend" width="400" height="240"></canvas>
+    </div>
+  </div>
+  <p class="form-note">Average rating per user and feedbacks trend (last 6 months).</p>
+</div>
+
+  <div class="card">
+    <h3>Users</h3>
+    <ul class="list">
+      {% for u in users %}
+        <li><a href="{{ url_for('user_feedbacks', user_id=u['id']) }}">{{ u['name'] }}</a> <small>({{ u['role'] }})</small></li>
+      {% endfor %}
+    </ul>
+    <p><a href="{{ url_for('register') }}" class="btn ghost">Add User</a></p>
+  </div>
+  <div class="card">
+    <h3>Recent Feedbacks</h3>
+    <ul class="list">
+      {% for f in recents %}
+        <li><strong>{{ f['to_name'] }}</strong> ← {{ f['from_name'] }} : {{ f['title'] }} <span class="muted">({{ f['rating'] }}/5)</span></li>
+      {% else %}
+        <li class="muted">No feedbacks yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+async function loadAnalytics(){
+  const res = await fetch('/analytics_data');
+  const data = await res.json();
+  // Avg per user bar chart
+  const labels = data.avg_per_user.map(u => u.name + ' ('+u.count+')');
+  const values = data.avg_per_user.map(u => u.avg);
+  const ctx = document.getElementById('chartAvg').getContext('2d');
+  new Chart(ctx, { type: 'bar', data: { labels: labels, datasets: [{ label: 'Avg Rating', data: values }] }, options: { responsive:true, scales:{ y:{min:0,max:5} } } });
+  // Trend line chart
+  const months = data.monthly_trend.map(m=>m.month);
+  const counts = data.monthly_trend.map(m=>m.count);
+  const ctx2 = document.getElementById('chartTrend').getContext('2d');
+  new Chart(ctx2, { type: 'line', data: { labels: months, datasets: [{ label: 'Feedbacks', data: counts, fill:true }] }, options: { responsive:true } });
+}
+document.addEventListener('DOMContentLoaded', loadAnalytics);
+</script>
+

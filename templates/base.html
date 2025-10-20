@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}Employee Feedback System{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="with-bg">
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+  <nav class="topnav">
+    <a href="{{ url_for('index') }}" class="brand">Feedback<span class="dot">.</span></a>
+    <button id="theme-toggle" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">🌙</button>
+    {% if session.get('user_id') %}
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('submit_feedback') }}">Submit Feedback</a>
+      {% if session.get('role') == 'admin' %}
+        <a href="{{ url_for('all_feedbacks') }}">All Feedbacks</a>
+        <a href="{{ url_for('export_feedbacks') }}">Export CSV</a>
+      {% endif %}
+      <a href="{{ url_for('logout') }}" class="right">Logout ({{ session.get('user_name') }})</a>
+    {% else %}
+      <a href="{{ url_for('login') }}" class="right">Login</a>
+      <a href="{{ url_for('register') }}" class="right">Register</a>
+    {% endif %}
+  </nav>
+
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-list">
+        {% for category, msg in messages %}
+          <div class="flash {{ category }}">{{ msg }}</div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <p>Employee Feedback System • Built with Flask + sqlite3</p>
+  </footer>
+
+  <div id="confetti-root" aria-hidden="true"></div>
+  <script src="{{ url_for('static', filename='ui.js') }}"></script>
+</body>
+</html>

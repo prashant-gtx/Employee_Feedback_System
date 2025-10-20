@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Submit Feedback{% endblock %}
+{% block content %}
+<h2>Submit Feedback</h2>
+<form method="post" class="card">
+  <label>To
+    <select name="to_user" required>
+      {% for u in users %}
+        <option value="{{ u['id'] }}">{{ u['name'] }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Title<input name="title" required></label>
+  <label>Comments<textarea name="comments" rows="4"></textarea></label>
+  <label>Rating
+    <select name="rating">
+      <option>5</option><option>4</option><option>3</option><option>2</option><option>1</option>
+    </select>
+  </label>
+  <button class="btn" type="submit">Send Feedback</button>
+</form>
+{% endblock %}

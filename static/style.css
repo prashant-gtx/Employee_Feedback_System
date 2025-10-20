@@ -1,0 +1,51 @@
+
+:root{
+  --bg:#0f1724;
+  --card:rgba(255,255,255,0.06);
+  --glass: rgba(255,255,255,0.06);
+  --accent:#7c3aed;
+  --accent-2:#06b6d4;
+  --muted:rgba(255,255,255,0.6);
+  --glass-border: rgba(255,255,255,0.06);
+  --glass-blur: 8px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--muted);margin:0;background:linear-gradient(180deg,#071028 0%, #071733 60%);overflow-x:hidden}
+.with-bg{position:relative;min-height:100vh;padding-bottom:80px}
+.bg-blob{position:fixed;width:520px;height:520px;border-radius:50%;filter:blur(80px);opacity:0.55;transform:translate3d(0,0,0);z-index:0;pointer-events:none;}
+.blob-1{left:-120px;top:-80px;background-image: url('/static/images/bg1.svg'); background-size: cover; background-position: center; filter: blur(28px) saturate(120%); opacity:0.65;animation:blobMove 12s infinite alternate;}
+.blob-2{right:-140px;bottom:-100px;background-image: url('/static/images/bg2.svg'); background-size: cover; background-position: center; filter: blur(28px) saturate(120%); opacity:0.45;animation:blobMove 14s infinite alternate-reverse;}
+@keyframes blobMove{from{transform:translateY(0) translateX(0) scale(1)} to{transform:translateY(30px) translateX(30px) scale(1.08)}}
+
+.topnav{position:relative;z-index:5;display:flex;gap:12px;align-items:center;padding:14px 28px;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));backdrop-filter: blur(6px);border-bottom:1px solid rgba(255,255,255,0.03)}
+.topnav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;transition:all .22s ease;font-weight:600}
+.topnav a:hover{transform:translateY(-3px);color:white;background:rgba(255,255,255,0.03)}
+.topnav a.brand{font-size:18px;color:white;letter-spacing:0.4px}
+.topnav .dot{color:var(--accent);margin-left:6px}
+.topnav a.right{margin-left:auto}
+.icon-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:6px 10px;border-radius:999px;color:inherit;cursor:pointer;margin-left:12px}
+.container{max-width:1100px;margin:42px auto;padding:0 20px;position:relative;z-index:3}
+.hero{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:36px;border-radius:14px;box-shadow:0 10px 30px rgba(2,6,23,0.6);color:white;overflow:hidden;position:relative}
+.hero h1{margin:0 0 8px;font-size:30px;letter-spacing:-0.4px}
+.btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;padding:10px 16px;border-radius:10px;text-decoration:none;border:none;cursor:pointer;box-shadow:0 8px 24px rgba(12,20,50,0.4);transition:transform .18s ease, box-shadow .18s ease}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(255,255,255,0.06)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));padding:18px;border-radius:12px;box-shadow:0 10px 30px rgba(2,6,23,0.6);border:1px solid var(--glass-border);backdrop-filter:blur(var(--glass-blur));transition:transform .18s ease, box-shadow .18s ease;overflow:hidden}
+.card:hover{transform:translateY(-6px);box-shadow:0 22px 44px rgba(2,6,23,0.7)}
+.list{list-style:none;padding:0;margin:0}
+.list li{padding:12px 0;border-bottom:1px dashed rgba(255,255,255,0.04);color:rgba(255,255,255,0.9)}
+label{display:block;margin:10px 0;font-size:14px;color:rgba(255,255,255,0.9)}
+input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted);outline:none;transition:box-shadow .12s ease}
+input:focus,textarea:focus,select:focus{box-shadow:0 6px 18px rgba(124,58,237,0.12);border-color:rgba(124,58,237,0.6)}
+.muted{color:rgba(255,255,255,0.7);font-size:13px}
+.flash-list{margin:12px 0}
+.flash{padding:10px 12px;border-radius:10px;margin-bottom:10px;color:#071028;font-weight:600}
+.flash.success{background:rgba(16,185,129,0.12);color:#bbf7d0}
+.footer{text-align:center;padding:36px;color:rgba(255,255,255,0.5)}
+form.card{max-width:520px;margin:18px auto}
+.fade-up{opacity:0;transform:translateY(8px);animation:fadeUp .6s forwards ease-out}
+@keyframes fadeUp{to{opacity:1;transform:none}}
+#confetti-root{position:fixed;left:0;top:0;right:0;bottom:0;pointer-events:none;overflow:hidden;z-index:9999}
+.confetti-piece{position:absolute;width:10px;height:18px;opacity:0.95;border-radius:2px;transform-origin:center;animation:confettiFall 1200ms linear forwards}
+@keyframes confettiFall{0%{transform:translateY(-20vh) rotate(0) scale(1)}100%{transform:translateY(110vh) rotate(720deg) scale(0.9);opacity:0.95}}

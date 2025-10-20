@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}All Feedbacks{% endblock %}
+{% block content %}
+<h2>All Feedbacks</h2>
+<ul class="list">
+  {% for f in feedbacks %}
+    <li class="card">
+      <strong>{{ f['title'] }}</strong> — {{ f['from_name'] }} → {{ f['to_name'] }} <span class="muted">on {{ f['created_at'][:10] }}</span>
+      <p>{{ f['comments'] }}</p>
+      <p>Rating: {{ f['rating'] }}/5</p>
+    </li>
+  {% else %}
+    <li class="muted">No feedbacks yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

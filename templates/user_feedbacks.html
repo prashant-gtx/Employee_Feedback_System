@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Feedbacks for {{ user['name'] }}{% endblock %}
+{% block content %}
+<h2>Feedbacks for {{ user['name'] }}</h2>
+<p>Average rating: {% if avg['cnt']>0 %}{{ '%.2f' % avg['avg_rating'] }} ({{ avg['cnt'] }} reviews){% else %}No reviews yet{% endif %}</p>
+<ul class="list">
+  {% for f in feedbacks %}
+    <li class="card">
+      <strong>{{ f['title'] }}</strong> — from {{ f['from_name'] }} <span class="muted">on {{ f['created_at'][:10] }}</span>
+      <p>{{ f['comments'] }}</p>
+      <p>Rating: {{ f['rating'] }}/5</p>
+    </li>
+  {% else %}
+    <li class="muted">No feedback found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

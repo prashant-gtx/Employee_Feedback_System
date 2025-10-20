@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Home - Employee Feedback{% endblock %}
+{% block content %}
+<div class="hero">
+  <h1>Employee Feedback & Review System</h1>
+  <p>Simple, lightweight feedback app using Flask and sqlite3.</p>
+  {% if not session.get('user_id') %}
+    <p><a class="btn" href="{{ url_for('register') }}">Get Started</a> <a class="btn ghost" href="{{ url_for('login') }}">Login</a></p>
+  {% else %}
+    <p><a class="btn" href="{{ url_for('dashboard') }}">Go to Dashboard</a></p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<h2>Create account</h2>
+<form method="post" class="card" enctype="multipart/form-data">
+  <label>Name<input name="name" required></label>
+  <label>Email<input name="email" type="email" required></label>
+  <label>Password<input name="password" type="password" required></label>
+  <label>Role
+    <select name="role">
+      <option value="employee">Employee</option>
+      <option value="admin">Admin</option>
+    </select>
+  </label>
+  <label>Avatar<input name="avatar" type="file" accept="image/*"></label>
+  <button class="btn" type="submit">Register</button>
+</form>
+{% endblock %}
